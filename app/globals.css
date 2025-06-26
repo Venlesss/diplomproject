@@ -1,0 +1,225 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@font-face {
+  font-family: 'sourcecodee';
+  src: url("./fonts/SourceCodePro-SemiBold.ttf") format('ttf');
+}
+/* Центрирование формы по всей странице */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #081213;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: 
+    linear-gradient(to top, #081213, rgba(0, 0, 0, 0)), url('/images/zal3.jpeg');
+  background-size: cover;
+  background-position: center center;
+}
+
+/* Контейнер формы */
+.auth-container {
+  background-color: #173235;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 100%;
+  clip-path: polygon(5% 0%, 95% 0%, 100% 5%, 100% 95%, 95% 100%, 5% 100%, 0% 95%, 0% 5%);
+  position: relative; /* Для позиционирования псевдоэлемента */
+}
+
+
+/* Кнопки переключения */
+.auth-toggle-button {
+  flex: 1;
+  padding: 0.75rem;
+  background: none;           /* Убираем фон кнопок */
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;               /* Убираем рамку */
+  cursor: pointer;
+  position: relative;         /* Для позиционирования полоски */
+  transition: color 0.2s ease; /* Плавный переход для цвета текста */
+  text-align: center;
+  
+}
+
+/* Полоска под кнопкой */
+.auth-toggle-button.active::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;               /* Позиция полоски */
+  left: 0;
+  width: 100%;
+  height: 4px;                /* Толщина полоски */
+  background-color: #FFE20F;  /* Цвет полоски */
+  border-radius: 2px;         /* Закруглённые края полоски */
+  transition: left 0.3s ease, width 0.3s ease; /* Плавный переход для позиции и ширины */
+}
+
+/* При неактивном состоянии (по умолчанию полоска не видна) */
+.auth-toggle-button:not(.active)::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 0;
+  height: 4px;
+  background-color: #FFE20F;
+  border-radius: 2px;
+  transition: left 0.3s ease, width 0.3s ease; /* Плавный переход */
+}
+
+/* Эффект наведения */
+.auth-toggle-button:hover {
+  background-color: #998700;
+  border-radius: 4px;
+  color: #fff;
+}
+
+
+/* Группа кнопок переключения */
+.flex {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.9rem;
+}
+
+label {
+  display: block;       /* Переводит метку на отдельную строку */
+  margin-bottom: 0.5rem; /* Добавляет отступ снизу */
+  font-weight: 500;     /* Умеренное выделение текста */
+  color: #ffffff;       /* Цвет текста для лучшей читаемости */
+}
+
+/* Поля ввода */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: calc(100% - 2rem);
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+  background-color: transparent;
+  border-bottom: 2px solid #998700;
+  color: white;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: #FFE20F;
+  outline: none;
+  box-shadow: 0 0 0 2px #998700;
+}
+
+/* Кнопка отправки формы */
+button[type="submit"] {
+  background-color: #998700;
+  color: #fff;
+  padding: 0.75rem;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  
+}
+
+button[type="submit"]:hover {
+  background-color: #2b6cb0;
+}
+
+/* Сообщение об ошибке */
+.text-red-500 {
+  background-color: #fed7d7;
+  padding: 0.75rem;
+  border-radius: 8px;
+  color: #c53030;
+  font-weight: 500;
+  margin-bottom: 0.9rem;
+}
+
+/* Отступы между элементами формы */
+form > div {
+  margin-bottom: 1.5rem;
+}
+
+button[type="submit"]:hover {
+  background-color: #FFE20F;
+  transform: translateY(-1px); /* Легкий эффект поднятия */
+}
+
+/* globals.css */
+/* Добавьте в конец файла */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease-out;
+}
+
+.hover\:transform {
+  transition: transform 0.3s ease;
+}
+
+/* Плавный скролл */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Отступ для фиксированного навбара */
+section {
+  scroll-margin-top: 100px;
+}
+
+/* Анимации для кнопок */
+.hover\:transform {
+  transition: transform 0.3s ease;
+}
+
+.hover\:scale-105:hover {
+  transform: scale(1.05);
+}
+
+.hover\:scale-110:hover {
+  transform: scale(1.1);
+}
+
+/* Стили для футера */
+footer a {
+  transition: all 0.3s ease;
+}
+
+footer a:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.2);
+}
+
+.auth-container {
+  background: rgba(31, 41, 55, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.auth-toggle-button {
+  color: #93c5fd;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.auth-toggle-button.active {
+  color: #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
+}
+
