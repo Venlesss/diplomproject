@@ -170,7 +170,7 @@ export default function IndividualBookingBlock({ visible, onClose }: IndividualB
         setDaysOff(data);
         // Формируем массив disabled дат для календаря
         const result: Date[] = [];
-        data.forEach((item: any) => {
+        data.forEach((item: { type: string; date?: string; start_date?: string; end_date?: string }) => {
           if (item.type === 'off' && item.date) {
             result.push(new Date(item.date));
           } else if (item.type === 'vacation' && item.start_date && item.end_date) {

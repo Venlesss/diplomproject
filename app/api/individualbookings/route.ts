@@ -38,7 +38,7 @@ export async function GET(req: NextRequest) {
         'SELECT trainer_id FROM users WHERE user_id = ? AND role = 2',
         [userId]
       );
-      const trainerRowsArr = trainerRows as any[];
+      const trainerRowsArr = Array.isArray(trainerRows) ? trainerRows as { trainer_id: number }[] : [];
       console.log('userId (из токена):', userId);
       if (!trainerRowsArr.length) {
         console.log('Нет trainer_id для userId', userId);
@@ -83,10 +83,16 @@ export async function GET(req: NextRequest) {
     );
 
     return NextResponse.json(bookings);
-  } catch (error: any) {
-    console.error('Ошибка:', error);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error('Ошибка:', error);
+      return NextResponse.json(
+        { message: 'Ошибка сервера', error: error.message },
+        { status: 500 }
+      );
+    }
     return NextResponse.json(
-      { message: 'Ошибка сервера', error: error.message },
+      { message: 'Неизвестная ошибка сервера' },
       { status: 500 }
     );
   } finally {
@@ -118,7 +124,7 @@ export async function PATCH(req: NextRequest) {
       password: '',
     });
     // Проверяем, что бронирование принадлежит пользователю и активно
-    const [rows]: any = await connection.execute(
+    const [rows] = await connection.execute(
       'SELECT * FROM individual_bookings WHERE booking_id = ? AND user_id = ? AND status = "active"',
       [booking_id, userId]
     );
@@ -130,10 +136,16 @@ export async function PATCH(req: NextRequest) {
       [booking_id, userId]
     );
     return NextResponse.json({ success: true });
-  } catch (error: any) {
-    console.error('Ошибка отмены бронирования:', error);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error('Ошибка отмены бронирования:', error);
+      return NextResponse.json(
+        { message: 'Ошибка сервера', error: error.message },
+        { status: 500 }
+      );
+    }
     return NextResponse.json(
-      { message: 'Ошибка сервера', error: error.message },
+      { message: 'Неизвестная ошибка сервера' },
       { status: 500 }
     );
   } finally {
@@ -166,7 +178,7 @@ export async function DELETE(req: NextRequest) {
       password: '',
     });
 
-    let rows: any;
+    let rows: { booking_id: number }[];
     if (role === 1) {
       // Админ может удалить любую запись
       [rows] = await connection.execute(
@@ -189,10 +201,16 @@ export async function DELETE(req: NextRequest) {
       [booking_id]
     );
     return NextResponse.json({ success: true });
-  } catch (error: any) {
-    console.error('Ошибка удаления бронирования:', error);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error('Ошибка удаления бронирования:', error);
+      return NextResponse.json(
+        { message: 'Ошибка сервера', error: error.message },
+        { status: 500 }
+      );
+    }
     return NextResponse.json(
-      { message: 'Ошибка сервера', error: error.message },
+      { message: 'Неизвестная ошибка сервера' },
       { status: 500 }
     );
   } finally {

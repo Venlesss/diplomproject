@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import format from 'date-fns/format';
 import { ru } from 'date-fns/locale';
 import { formatDistanceToNow } from 'date-fns/formatDistanceToNow';
+import Image from 'next/image';
 
 interface Trainer {
   trainer_id: number;
@@ -436,7 +437,7 @@ export default function Home() {
                       <td className="px-6 py-4 text-gray-300">
                         <div className="flex flex-col gap-2">
                           {trainer.photo_url && (
-                            <img src={trainer.photo_url} alt="Фото" className="mb-2 rounded w-24 h-24 object-cover border border-gray-600" />
+                            <Image src={trainer.photo_url} alt="Фото" className="mb-2 rounded w-24 h-24 object-cover border border-gray-600" width={96} height={96} />
                           )}
                           <input
                             type="file"
@@ -533,7 +534,7 @@ export default function Home() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {newGalleryImages.map((img, index) => (
                   <div key={img.preview} className="relative bg-gray-700 rounded-lg overflow-hidden flex flex-col items-center p-2 border-2 border-blue-400">
-                    <img src={img.preview} alt="Preview" className="rounded-lg h-64 object-cover w-full mb-2" />
+                    <Image src={img.preview} alt="Preview" className="rounded-lg h-64 object-cover w-full mb-2" width={400} height={256} />
                     <input
                       className="bg-gray-800 text-white rounded px-2 py-1 w-full mb-2"
                       value={img.description}
@@ -545,7 +546,7 @@ export default function Home() {
                 ))}
                 {gallery.map((img, index) => (
                   <div key={img.image_id} className="relative bg-gray-700 rounded-lg overflow-hidden flex flex-col items-center p-2">
-                    <img src={img.image_url} alt="Gallery" className="rounded-lg h-64 object-cover w-full mb-2" />
+                    <Image src={img.image_url} alt="Gallery" className="rounded-lg h-64 object-cover w-full mb-2" width={400} height={256} />
                     <input
                       className="bg-gray-800 text-white rounded px-2 py-1 w-full mb-2"
                       value={img.description || ''}
@@ -562,11 +563,13 @@ export default function Home() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {gallery.map((img) => (
                 <div key={img.image_id} className="flex flex-col items-center bg-gray-800 rounded-2xl overflow-hidden shadow-lg p-4 m-2">
-                  <img
+                  <Image
                     src={img.image_url}
                     alt={img.description || 'Gallery'}
                     className="rounded-lg h-64 object-cover w-full"
                     title={img.description || ''}
+                    width={400}
+                    height={256}
                   />
                   {img.description && (
                     <div className="text-white text-lg font-semibold py-2 text-center w-full">

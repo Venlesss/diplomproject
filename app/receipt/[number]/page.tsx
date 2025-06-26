@@ -6,7 +6,7 @@ export default function ReceiptPage() {
   const params = useParams();
   const router = useRouter();
   const receiptNumber = params?.number ? (Array.isArray(params.number) ? params.number[0] : params.number) : null;
-  const [receipt, setReceipt] = useState<any>(null);
+  const [receipt, setReceipt] = useState<unknown>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [timeLeft, setTimeLeft] = useState("");

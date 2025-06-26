@@ -47,12 +47,12 @@ interface IndividualBooking {
 }
 
 // Новый хук для загрузки чеков по тикетам
-function useReceiptsForBookings(bookings: any[], type: string) {
-  const [receipts, setReceipts] = useState<Record<number, any>>({});
+function useReceiptsForBookings(bookings: IndividualBooking[] | SimpleBooking[], type: string) {
+  const [receipts, setReceipts] = useState<Record<number, unknown>>({});
   useEffect(() => {
     let cancelled = false;
     async function fetchReceipts() {
-      const result: Record<number, any> = {};
+      const result: Record<number, unknown> = {};
       for (const booking of bookings) {
         try {
           const res = await fetch(`/api/receipts?ticket_id=${booking.booking_id}&ticket_type=${type}`);
@@ -72,8 +72,8 @@ function useReceiptsForBookings(bookings: any[], type: string) {
 }
 
 // Async функция для загрузки чеков по тикетам (НЕ хук)
-async function fetchReceiptsForBookings(bookings: any[], type: string) {
-  const result: Record<number, any> = {};
+async function fetchReceiptsForBookings(bookings: IndividualBooking[] | SimpleBooking[], type: string) {
+  const result: Record<number, unknown> = {};
   for (const booking of bookings) {
     try {
       const res = await fetch(`/api/receipts?ticket_id=${booking.booking_id}&ticket_type=${type}`);
@@ -87,7 +87,7 @@ async function fetchReceiptsForBookings(bookings: any[], type: string) {
 }
 
 // Компонент для тикета с чеком и таймером
-function TicketWithReceipt({ booking, receipt, onRefuse, children, reloadProfileData }: { booking: any, receipt: any, onRefuse: () => void, children?: React.ReactNode, reloadProfileData?: () => void }) {
+function TicketWithReceipt({ booking, receipt, onRefuse, children, reloadProfileData }: { booking: IndividualBooking | SimpleBooking, receipt: unknown, onRefuse: () => void, children?: React.ReactNode, reloadProfileData?: () => void }) {
   const [timeLeft, setTimeLeft] = useState('');
   const timerExpiredRef = useRef(false);
   useEffect(() => {
@@ -165,28 +165,28 @@ const ProfilePage = () => {
   const [showUsers, setShowUsers] = useState(false);
   const [showBlocked, setShowBlocked] = useState(false);
   const [showTrainers, setShowTrainers] = useState(false);
-  const [users, setUsers] = useState<any[]>([]);
+  const [users, setUsers] = useState<unknown[]>([]);
   const [usersLoading, setUsersLoading] = useState(false);
-  const [blockedUsers, setBlockedUsers] = useState<any[]>([]);
-  const [blockModal, setBlockModal] = useState<{ open: boolean, user: any | null }>({ open: false, user: null });
+  const [blockedUsers, setBlockedUsers] = useState<unknown[]>([]);
+  const [blockModal, setBlockModal] = useState<{ open: boolean, user: unknown | null }>({ open: false, user: null });
   const [blockReason, setBlockReason] = useState("");
   const [blockLoading, setBlockLoading] = useState(false);
   const blockReasonInput = useRef<HTMLInputElement>(null);
-  const [trainerBookings, setTrainerBookings] = useState<any[]>([]);
+  const [trainerBookings, setTrainerBookings] = useState<unknown[]>([]);
   const [expandedMonths, setExpandedMonths] = useState<string[]>([]);
   const [expandedDays, setExpandedDays] = useState<string[]>([]);
   const [expandedUserId, setExpandedUserId] = useState<number | null>(null);
-  const [expandedUserBookings, setExpandedUserBookings] = useState<any | null>(null);
+  const [expandedUserBookings, setExpandedUserBookings] = useState<unknown | null>(null);
   const [expandedUserLoading, setExpandedUserLoading] = useState(false);
-  const [promoteModal, setPromoteModal] = useState<{ open: boolean, user: any | null }>({ open: false, user: null });
-  const [trainers, setTrainers] = useState<any[]>([]);
+  const [promoteModal, setPromoteModal] = useState<{ open: boolean, user: unknown | null }>({ open: false, user: null });
+  const [trainers, setTrainers] = useState<unknown[]>([]);
   const [showCheck, setShowCheck] = useState(false);
   const [checkNumber, setCheckNumber] = useState("");
-  const [checkResult, setCheckResult] = useState<any>(null);
+  const [checkResult, setCheckResult] = useState<unknown>(null);
   const [checkError, setCheckError] = useState("");
   const [checkLoading, setCheckLoading] = useState(false);
-  const [expandedSimpleReceipts, setExpandedSimpleReceipts] = useState<Record<number, any>>({});
-  const [expandedIndividualReceipts, setExpandedIndividualReceipts] = useState<Record<number, any>>({});
+  const [expandedSimpleReceipts, setExpandedSimpleReceipts] = useState<Record<number, unknown>>({});
+  const [expandedIndividualReceipts, setExpandedIndividualReceipts] = useState<Record<number, unknown>>({});
 
   const rawId = params?.id;
   const userId = rawId ? (Array.isArray(rawId) ? rawId[0] : rawId) : null;

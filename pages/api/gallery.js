@@ -2,6 +2,7 @@ import mysql from 'mysql2/promise';
 import { IncomingForm } from 'formidable';
 import path from 'path';
 import fs from 'fs';
+import jwt from 'jsonwebtoken';
 
 export const config = {
   api: {
@@ -32,7 +33,7 @@ export default async function handler(req, res) {
     if (!token) return res.status(401).json({ message: 'Не авторизован' });
     let decoded;
     try {
-      decoded = require('jsonwebtoken').verify(token, process.env.JWT_SECRET);
+      decoded = jwt.verify(token, process.env.JWT_SECRET);
     } catch {
       return res.status(401).json({ message: 'Недействительный токен' });
     }
@@ -81,7 +82,7 @@ export default async function handler(req, res) {
     if (!token) return res.status(401).json({ message: 'Не авторизован' });
     let decoded;
     try {
-      decoded = require('jsonwebtoken').verify(token, process.env.JWT_SECRET);
+      decoded = jwt.verify(token, process.env.JWT_SECRET);
     } catch {
       return res.status(401).json({ message: 'Недействительный токен' });
     }
@@ -114,7 +115,7 @@ export default async function handler(req, res) {
     if (!token) return res.status(401).json({ message: 'Не авторизован' });
     let decoded;
     try {
-      decoded = require('jsonwebtoken').verify(token, process.env.JWT_SECRET);
+      decoded = jwt.verify(token, process.env.JWT_SECRET);
     } catch {
       return res.status(401).json({ message: 'Недействительный токен' });
     }

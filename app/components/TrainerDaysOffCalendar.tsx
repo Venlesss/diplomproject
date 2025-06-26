@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ru } from 'date-fns/locale';
-// @ts-ignore
+// @ts-expect-error
 import { registerLocale } from 'react-datepicker';
 
 interface Trainer {
@@ -32,7 +32,7 @@ function toLocalISODate(date: Date) {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
 }
 
-// @ts-ignore
+// @ts-expect-error
 registerLocale('ru', ru);
 
 export default function TrainerDaysOffCalendar({ trainers }: { trainers: Trainer[] }) {
@@ -97,7 +97,7 @@ export default function TrainerDaysOffCalendar({ trainers }: { trainers: Trainer
     setLoading(true);
     setError(null);
     try {
-      let body: any = { type: item.type };
+      const body: Record<string, string | null> = { type: item.type };
       if (item.type === 'off') {
         body.date = item.date;
       } else {
